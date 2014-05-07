@@ -40,10 +40,10 @@ let default_set_size = 200
 exception IllegalChar
 
 let valid_char (c : int) : bool =
-  c >= 0 && c < 256
+  c >= 0 && c < max_int
       
 let char_as_string (c : int) : string =
-  Printf.sprintf "\\%03d" c
+  Printf.sprintf "\\%05d" c
 
 let string_to_int (c : string) : int =
   if String.length c = 1 then
@@ -62,8 +62,8 @@ let create_empty () : set =
   Hashset.create 0
 
 let create_full () : set =
-  let ret = Hashset.create 256 in
-    for i = 0 to 255 do Hashset.add ret i done;
+  let ret = Hashset.create 10000 in
+    for i = 0 to max_int - 1 do Hashset.add ret i done;
     ret
 
 let copy  : set -> set  = Hashset.copy
